@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useIAP } from 'react-native-iap';
 
+import { isExpoGo } from './isExpoGo';
 import { isPurchased, setPurchased } from './purchaseFlag';
 import { FALLBACK_PRICE_IOS, IapController, PRODUCT_ID_IOS } from './types';
 
@@ -12,6 +13,21 @@ import { FALLBACK_PRICE_IOS, IapController, PRODUCT_ID_IOS } from './types';
  * собрать dev client через EAS и пройти покупку в песочнице StoreKit.
  */
 export function useIap(): IapController {
+  // isExpoGo() не меняется в течение жизни процесса — ветвление хуков стабильно между рендерами.
+  return isExpoGo() ? useIapExpoGoStub() : useIapNative();
+}
+
+/** В Expo Go нативного модуля StoreKit нет — не пытаемся его вызывать, просто показываем "недоступно". */
+function useIapExpoGoStub(): IapController {
+  const noop = useCallback(async () => {}, []);
+  return {
+    state: { purchased: false, priceLabel: FALLBACK_PRICE_IOS, loading: false, error: null, unavailable: true },
+    buy: noop,
+    restore: noop,
+  };
+}
+
+function useIapNative(): IapController {
   const [purchased, setPurchasedState] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

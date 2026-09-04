@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import RustoreBillingClient from 'react-native-rustore-billing';
 
+import { isExpoGo } from './isExpoGo';
 import { isPurchased, setPurchased } from './purchaseFlag';
 import { FALLBACK_PRICE_RUSTORE, IapController, PRODUCT_ID_RUSTORE } from './types';
 
@@ -28,6 +29,15 @@ export function useIap(): IapController {
   const initialized = useRef(false);
 
   useEffect(() => {
+    if (isExpoGo()) {
+      // Нативного модуля RuStore Billing в Expo Go нет — не пытаемся его вызывать.
+      isPurchased().then((value) => {
+        setPurchasedState(value);
+        setUnavailable(true);
+        setLoading(false);
+      });
+      return;
+    }
     (async () => {
       try {
         if (!initialized.current) {
@@ -70,6 +80,7 @@ export function useIap(): IapController {
   }, []);
 
   const buy = useCallback(async () => {
+    if (isExpoGo()) return;
     setLoading(true);
     setError(null);
     try {
@@ -88,6 +99,7 @@ export function useIap(): IapController {
   }, []);
 
   const restore = useCallback(async () => {
+    if (isExpoGo()) return;
     setLoading(true);
     setError(null);
     try {
