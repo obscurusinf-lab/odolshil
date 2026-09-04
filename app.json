@@ -1,0 +1,71 @@
+{
+  "expo": {
+    "name": "Одолжил",
+    "slug": "odolshil",
+    "scheme": "odolshil",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "backgroundColor": "#14171A",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.obscurusinf.odolshil",
+      "infoPlist": {
+        "NSContactsUsageDescription": "Чтобы подставить имя из контактов при добавлении записи.",
+        "NSPhotoLibraryUsageDescription": "Чтобы прикрепить фото вещи к записи.",
+        "NSCameraUsageDescription": "Чтобы сфотографировать вещь для записи."
+      }
+    },
+    "android": {
+      "package": "com.obscurusinf.odolshil",
+      "adaptiveIcon": {
+        "backgroundColor": "#14171A",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["READ_CONTACTS", "POST_NOTIFICATIONS", "SCHEDULE_EXACT_ALARM"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      [
+        "expo-notifications",
+        {
+          "color": "#E0574B"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Чтобы прикрепить фото вещи к записи.",
+          "cameraPermission": "Чтобы сфотографировать вещь для записи."
+        }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Чтобы подставить имя из контактов при добавлении записи."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "2.1.20",
+            "minSdkVersion": 24
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
