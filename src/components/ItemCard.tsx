@@ -7,6 +7,7 @@ import { Item } from '@/db/types';
 import { useI18n } from '@/i18n';
 import { useTheme } from '@/theme/ThemeProvider';
 import { dayDiff } from '@/utils/date';
+import { OwlMascot } from './OwlMascot';
 
 interface Props {
   item: Item;
@@ -67,14 +68,14 @@ export function ItemCard({ item, onPress, onReturn }: Props) {
             {item.title}
           </Text>
           {dueLabel !== null ? (
-            <View
-              style={[
-                styles.badge,
-                { borderRadius: radius.sm, backgroundColor: overdue ? colors.danger : colors.success },
-              ]}
-            >
+            <View style={styles.status}>
+              <OwlMascot state={overdue ? 'alert' : 'asleep'} size={26} />
               <Text
-                style={[typography.caption, styles.badgeText, { color: overdue ? colors.dangerInk : colors.successInk }]}
+                style={[
+                  typography.caption,
+                  styles.dueText,
+                  { color: overdue ? colors.dangerText : colors.ink },
+                ]}
               >
                 {dueLabel}
               </Text>
@@ -107,12 +108,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-  badge: {
+  status: {
     flexShrink: 0,
-    paddingHorizontal: 9,
-    paddingVertical: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
-  badgeText: {
+  dueText: {
     fontWeight: '700',
     fontVariant: ['tabular-nums'],
   },
