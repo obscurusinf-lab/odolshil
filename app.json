@@ -13,7 +13,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.obscurusinf.odolshil",
       "infoPlist": {
-        "CFBundleDisplayName": "Lendly",
+        "CFBundleDisplayName": "Owly",
         "NSContactsUsageDescription": "Чтобы подставить имя из контактов при добавлении записи.",
         "NSPhotoLibraryUsageDescription": "Чтобы прикрепить фото вещи к записи.",
         "NSCameraUsageDescription": "Чтобы сфотографировать вещь для записи."
