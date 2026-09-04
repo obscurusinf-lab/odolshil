@@ -7,7 +7,7 @@ import { Item } from '@/db/types';
 import { useI18n } from '@/i18n';
 import { useTheme } from '@/theme/ThemeProvider';
 import { dayDiff } from '@/utils/date';
-import { OwlMascot } from './OwlMascot';
+import { OwlMascot, stageFromDaysOverdue } from './OwlMascot';
 
 interface Props {
   item: Item;
@@ -20,18 +20,20 @@ export function ItemCard({ item, onPress, onReturn }: Props) {
   const { t } = useI18n();
   const swipeRef = useRef<SwipeableMethods>(null);
 
-  const overdue = item.dueAt !== null && dayDiff(Date.now(), item.dueAt) < 0;
+  const diff = item.dueAt === null ? null : dayDiff(Date.now(), item.dueAt);
+  const overdue = diff !== null && diff < 0;
+  const owlStage = overdue ? stageFromDaysOverdue(Math.abs(diff!)) : 0;
 
   const dueLabel =
-    item.dueAt === null
+    diff === null
       ? null
-      : (() => {
-          const diff = dayDiff(Date.now(), item.dueAt!);
-          if (diff === 0) return t('list.due.today');
-          if (diff === 1) return t('list.due.tomorrow');
-          if (diff < 0) return t('list.due.overdueBy', { days: Math.abs(diff) });
-          return t('list.due.in', { days: diff });
-        })();
+      : diff === 0
+        ? t('list.due.today')
+        : diff === 1
+          ? t('list.due.tomorrow')
+          : diff < 0
+            ? t('list.due.overdueBy', { days: Math.abs(diff) })
+            : t('list.due.in', { days: diff });
 
   const renderRightActions = () => (
     <Pressable
@@ -69,7 +71,7 @@ export function ItemCard({ item, onPress, onReturn }: Props) {
           </Text>
           {dueLabel !== null ? (
             <View style={styles.status}>
-              <OwlMascot state={overdue ? 'alert' : 'asleep'} size={26} />
+              <OwlMascot stage={owlStage} size={26} />
               <Text
                 style={[
                   typography.caption,
