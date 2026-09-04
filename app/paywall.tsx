@@ -41,7 +41,7 @@ export default function PaywallScreen() {
         />
 
         <Pressable onPress={iap.restore} style={{ marginTop: spacing(2), alignItems: 'center' }}>
-          <Text style={[typography.caption, { color: colors.accent }]}>{t('paywall.restore')}</Text>
+          <Text style={[typography.caption, { color: colors.ink }]}>{t('paywall.restore')}</Text>
         </Pressable>
 
         <Pressable onPress={() => router.back()} style={{ marginTop: spacing(3), alignItems: 'center' }}>

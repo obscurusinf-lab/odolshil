@@ -181,7 +181,7 @@ export default function ItemFormScreen() {
           {isNew ? t('form.title.add') : t('form.title.edit')}
         </Text>
         <Pressable onPress={handleSave} hitSlop={8} disabled={saving}>
-          <Text style={[typography.bodyStrong, { color: colors.accent, opacity: saving ? 0.5 : 1 }]}>
+          <Text style={[typography.bodyStrong, { color: colors.ink, opacity: saving ? 0.5 : 1 }]}>
             {t('form.save')}
           </Text>
         </Pressable>
@@ -242,7 +242,7 @@ export default function ItemFormScreen() {
           error={errors.person}
         />
         <Pressable onPress={handlePickContact} style={{ marginTop: -spacing(1.5), marginBottom: spacing(2) }}>
-          <Text style={[typography.caption, { color: colors.accent }]}>{t('form.field.contacts')}</Text>
+          <Text style={[typography.caption, { color: colors.ink }]}>{t('form.field.contacts')}</Text>
         </Pressable>
 
         <Text style={[typography.label, { color: colors.inkMuted, marginBottom: spacing(0.75) }]}>
@@ -293,12 +293,12 @@ export default function ItemFormScreen() {
           <View style={{ marginBottom: spacing(2) }}>
             <Image source={{ uri: photoUri }} style={styles.photo} />
             <Pressable onPress={() => setPhotoUri(null)} style={{ marginTop: spacing(1) }}>
-              <Text style={[typography.caption, { color: colors.accent }]}>{t('form.field.photo.remove')}</Text>
+              <Text style={[typography.caption, { color: colors.ink }]}>{t('form.field.photo.remove')}</Text>
             </Pressable>
           </View>
         ) : (
           <Pressable onPress={handlePickPhoto} style={{ marginBottom: spacing(2) }}>
-            <Text style={[typography.caption, { color: colors.accent }]}>{t('form.field.photo.add')}</Text>
+            <Text style={[typography.caption, { color: colors.ink }]}>{t('form.field.photo.add')}</Text>
           </Pressable>
         )}
 

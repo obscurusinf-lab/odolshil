@@ -24,7 +24,7 @@ export function TextField({ label, error, style, ...rest }: Props) {
           {
             color: colors.ink,
             backgroundColor: colors.surface,
-            borderColor: error ? colors.accent : colors.border,
+            borderColor: error ? colors.dangerText : colors.border,
             borderRadius: radius.sm,
             paddingHorizontal: spacing(1.5),
             paddingVertical: spacing(1.25),
@@ -34,7 +34,7 @@ export function TextField({ label, error, style, ...rest }: Props) {
         {...rest}
       />
       {error ? (
-        <Text style={[typography.caption, { color: colors.accent, marginTop: spacing(0.5) }]}>
+        <Text style={[typography.caption, { color: colors.dangerText, marginTop: spacing(0.5) }]}>
           {error}
         </Text>
       ) : null}

@@ -15,8 +15,8 @@ export function PrimaryButton({ label, onPress, variant = 'accent', disabled, lo
   const { colors, typography, radius, spacing } = useTheme();
 
   const background =
-    variant === 'accent' ? colors.accent : variant === 'neutral' ? colors.surfaceRaised : 'transparent';
-  const textColor = variant === 'accent' ? colors.accentInk : colors.ink;
+    variant === 'accent' ? colors.ink : variant === 'neutral' ? colors.surfaceRaised : 'transparent';
+  const textColor = variant === 'accent' ? colors.background : colors.ink;
 
   return (
     <Pressable

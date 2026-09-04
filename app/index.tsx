@@ -87,7 +87,7 @@ export default function ListScreen() {
               <Text
                 style={[
                   typography.label,
-                  { color: colors.accent, marginBottom: spacing(1) },
+                  { color: colors.dangerText, marginBottom: spacing(1) },
                 ]}
               >
                 {t('list.overdue')}
@@ -108,10 +108,15 @@ export default function ListScreen() {
         onPress={handleAdd}
         style={[
           styles.fab,
-          { backgroundColor: colors.accent, bottom: spacing(3) + insets.bottom, right: spacing(3) },
+          {
+            backgroundColor: colors.surfaceRaised,
+            borderColor: colors.border,
+            bottom: spacing(3) + insets.bottom,
+            right: spacing(3),
+          },
         ]}
       >
-        <Text style={[typography.heading, { color: colors.accentInk }]}>+</Text>
+        <Text style={[typography.heading, { color: colors.ink }]}>+</Text>
       </Pressable>
     </View>
   );
@@ -135,6 +140,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
+    borderWidth: StyleSheet.hairlineWidth,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',

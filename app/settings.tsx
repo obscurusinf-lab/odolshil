@@ -101,7 +101,7 @@ export default function SettingsScreen() {
                 disabled={iap.state.unavailable}
               />
               <Pressable onPress={iap.restore} style={{ marginTop: spacing(1.5) }}>
-                <Text style={[typography.caption, { color: colors.accent }]}>{t('settings.purchase.restore')}</Text>
+                <Text style={[typography.caption, { color: colors.ink }]}>{t('settings.purchase.restore')}</Text>
               </Pressable>
             </View>
           )}
@@ -109,7 +109,7 @@ export default function SettingsScreen() {
 
         <Section title={t('settings.about')}>
           <Pressable onPress={() => router.push('/privacy')}>
-            <Text style={[typography.body, { color: colors.accent }]}>{t('settings.privacy')}</Text>
+            <Text style={[typography.body, { color: colors.ink }]}>{t('settings.privacy')}</Text>
           </Pressable>
         </Section>
       </ScrollView>

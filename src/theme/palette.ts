@@ -1,7 +1,8 @@
 /**
- * Палитра «Гроссбух»: разлинованная бумага / графитовый переплёт.
- * Один акцент (тёплый кирпично-красный) держим только за просрочкой —
- * везде остальное нейтральный чёрно-белый ряд, как чернила на бумаге.
+ * Палитра «Серый гроссбух»: интерфейс — чистый нейтральный серый, без
+ * тёплого бумажного оттенка. Цвет несёт только статус срока — просрочено
+ * (danger, красный) и до срока (success, приглушённый зелёный). Кнопки,
+ * ссылки, FAB — монохромные (ink/surface), никакого «брендового» акцента.
  */
 
 export type ColorScheme = 'light' | 'dark';
@@ -14,34 +15,48 @@ export interface Palette {
   ink: string;
   inkMuted: string;
   inkFaint: string;
-  accent: string;
-  accentInk: string;
+  /** Просрочка: заливка бейджа (одна на обе темы — самодостаточная плашка). */
+  danger: string;
+  /** Текст на заливке danger. */
+  dangerInk: string;
+  /** Просрочка в виде текста/рамки (не заливки) — контраст подобран под тему. */
+  dangerText: string;
+  /** До срока: заливка бейджа (одна на обе темы). */
+  success: string;
+  /** Текст на заливке success. */
+  successInk: string;
   overlay: string;
 }
 
 const light: Palette = {
-  background: '#F2EFE9',
-  surface: '#FBFAF7',
+  background: '#F0F0F0',
+  surface: '#FAFAFA',
   surfaceRaised: '#FFFFFF',
-  border: '#D9D3C7',
-  ink: '#20211F',
-  inkMuted: '#5B584E',
-  inkFaint: '#948F80',
-  accent: '#B23A2E',
-  accentInk: '#FFFFFF',
-  overlay: 'rgba(32,33,31,0.5)',
+  border: '#DCDCDC',
+  ink: '#1C1C1C',
+  inkMuted: '#6C6C6C',
+  inkFaint: '#9A9A9A',
+  danger: '#A82A1E',
+  dangerInk: '#FFEFE9',
+  dangerText: '#B23A2E',
+  success: '#5F7A68',
+  successInk: '#EFF6EF',
+  overlay: 'rgba(28,28,28,0.5)',
 };
 
 const dark: Palette = {
-  background: '#15161A',
-  surface: '#1D1F24',
-  surfaceRaised: '#262931',
-  border: '#33363E',
-  ink: '#EDEBE4',
-  inkMuted: '#A6A79F',
-  inkFaint: '#6E7178',
-  accent: '#E0574B',
-  accentInk: '#1A0C0A',
+  background: '#17181A',
+  surface: '#202224',
+  surfaceRaised: '#2A2C2F',
+  border: '#3A3C3F',
+  ink: '#ECECEC',
+  inkMuted: '#9B9C9E',
+  inkFaint: '#6B6C6E',
+  danger: '#A82A1E',
+  dangerInk: '#FFEFE9',
+  dangerText: '#E0574B',
+  success: '#5F7A68',
+  successInk: '#EFF6EF',
   overlay: 'rgba(0,0,0,0.6)',
 };
 

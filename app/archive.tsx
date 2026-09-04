@@ -66,7 +66,7 @@ export default function ArchiveScreen() {
                 ) : null}
               </View>
               <Pressable onPress={() => handleRestore(item)} hitSlop={8}>
-                <Text style={[typography.caption, { color: colors.accent }]}>{t('archive.restore')}</Text>
+                <Text style={[typography.caption, { color: colors.ink }]}>{t('archive.restore')}</Text>
               </Pressable>
             </View>
           )}

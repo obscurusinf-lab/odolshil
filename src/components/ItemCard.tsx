@@ -16,19 +16,21 @@ interface Props {
 
 export function ItemCard({ item, onPress, onReturn }: Props) {
   const { colors, typography, radius, spacing } = useTheme();
-  const { t, language } = useI18n();
+  const { t } = useI18n();
   const swipeRef = useRef<SwipeableMethods>(null);
 
   const overdue = item.dueAt !== null && dayDiff(Date.now(), item.dueAt) < 0;
 
-  const dueLabel = (() => {
-    if (item.dueAt === null) return t('list.due.noDate');
-    const diff = dayDiff(Date.now(), item.dueAt);
-    if (diff === 0) return t('list.due.today');
-    if (diff === 1) return t('list.due.tomorrow');
-    if (diff < 0) return t('list.due.overdueBy', { days: Math.abs(diff) });
-    return t('list.due.in', { days: diff });
-  })();
+  const dueLabel =
+    item.dueAt === null
+      ? null
+      : (() => {
+          const diff = dayDiff(Date.now(), item.dueAt!);
+          if (diff === 0) return t('list.due.today');
+          if (diff === 1) return t('list.due.tomorrow');
+          if (diff < 0) return t('list.due.overdueBy', { days: Math.abs(diff) });
+          return t('list.due.in', { days: diff });
+        })();
 
   const renderRightActions = () => (
     <Pressable
@@ -43,6 +45,8 @@ export function ItemCard({ item, onPress, onReturn }: Props) {
       </Text>
     </Pressable>
   );
+
+  const showAmount = item.kind === 'money' && item.amount !== null;
 
   return (
     <Swipeable ref={swipeRef} renderRightActions={renderRightActions} overshootRight={false} friction={2}>
@@ -59,27 +63,34 @@ export function ItemCard({ item, onPress, onReturn }: Props) {
         ]}
       >
         <View style={styles.row}>
-          <Text style={[typography.bodyStrong, { color: colors.ink, flex: 1 }]} numberOfLines={1}>
+          <Text style={[typography.bodyStrong, { color: colors.ink, flex: 1, minWidth: 0 }]}>
             {item.title}
           </Text>
-          {item.kind === 'money' && item.amount !== null ? (
-            <Text style={[typography.numeric, { color: colors.ink }]}>
-              {t('list.moneyAmount', { amount: item.amount, currency: item.currency ?? '' })}
-            </Text>
+          {dueLabel !== null ? (
+            <View
+              style={[
+                styles.badge,
+                { borderRadius: radius.sm, backgroundColor: overdue ? colors.danger : colors.success },
+              ]}
+            >
+              <Text
+                style={[typography.caption, styles.badgeText, { color: overdue ? colors.dangerInk : colors.successInk }]}
+              >
+                {dueLabel}
+              </Text>
+            </View>
           ) : null}
         </View>
-        <View style={[styles.row, { marginTop: spacing(0.5) }]}>
+        <View style={[styles.row, { marginTop: spacing(0.75) }]}>
           <Text style={[typography.caption, { color: colors.inkMuted, flex: 1 }]} numberOfLines={1}>
             {item.person}
+            {dueLabel === null ? ` · ${t('list.due.noDate')}` : ''}
           </Text>
-          <Text
-            style={[
-              typography.caption,
-              { color: overdue ? colors.accent : colors.inkFaint, fontWeight: overdue ? '700' : '400' },
-            ]}
-          >
-            {dueLabel}
-          </Text>
+          {showAmount ? (
+            <Text style={[typography.numeric, { color: colors.ink }]}>
+              {t('list.moneyAmount', { amount: item.amount!, currency: item.currency ?? '' })}
+            </Text>
+          ) : null}
         </View>
       </Pressable>
     </Swipeable>
@@ -94,6 +105,15 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 10,
+  },
+  badge: {
+    flexShrink: 0,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+  },
+  badgeText: {
+    fontWeight: '700',
   },
   action: {
     justifyContent: 'center',
