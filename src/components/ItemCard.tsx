@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontWeight: '700',
+    fontVariant: ['tabular-nums'],
   },
   action: {
     justifyContent: 'center',
