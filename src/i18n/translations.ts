@@ -101,7 +101,7 @@ export const ru = {
 } as const;
 
 export const en: Record<TranslationKey, string> = {
-  'app.name': 'Lent',
+  'app.name': 'Lendly',
 
   'tab.out': 'Lent',
   'tab.in': 'Borrowed',
@@ -177,7 +177,7 @@ export const en: Record<TranslationKey, string> = {
 
   'privacy.title': 'Privacy policy',
   'privacy.body':
-    "Lent keeps every record only on this device, in a local database. The app does not send data to a server, does not collect analytics, and shows no ads. Item photos and notes stay in your phone's storage. The only network call is verifying the full-version purchase through the App Store or RuStore. Deleting the app deletes all data with no way to recover it.",
+    "Lendly keeps every record only on this device, in a local database. The app does not send data to a server, does not collect analytics, and shows no ads. Item photos and notes stay in your phone's storage. The only network call is verifying the full-version purchase through the App Store or RuStore. Deleting the app deletes all data with no way to recover it.",
 
   'paywall.title': 'Five records, free',
   'paywall.body':
